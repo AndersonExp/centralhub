@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZapExpress Hub - Escolha Automática</title>
+    <meta name="description" content="Central de Recarga ZAP: Sua recarga rápida e segura. Escolha a melhor forma.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/lovable-uploads/40da18a9-ca8d-41e6-a863-48bcdc253714.png" type="image/png">
+    <link rel="apple-touch-icon" href="/lovable-uploads/40da18a9-ca8d-41e6-a863-48bcdc253714.png">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Central de Recarga ZAP - Escolha Automática">
+    <meta property="og:description" content="Central de Recarga ZAP: Sua recarga rápida e segura. Escolha a melhor forma.">
+    <meta property="og:image" content="/lovable-uploads/40da18a9-ca8d-41e6-a863-48bcdc253714.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Central de Recarga ZAP - Escolha Automática">
+    <meta name="twitter:description" content="Central de Recarga ZAP: Sua recarga rápida e segura. Escolha a melhor forma.">
+    <meta name="twitter:image" content="/lovable-uploads/40da18a9-ca8d-41e6-a863-48bcdc253714.png">
+    <style>
+        /* Reset e Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+               background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+               min-height: 100vh; overflow-x: hidden; }
+
+        /* Container Principal */
+        .manual-options { padding: 20px; max-width: 1200px; margin: 0 auto; min-height: 100vh;
+                          display: flex; flex-direction: column; }
+
+        .options-header { text-align: center; color: white; margin-bottom: 30px; opacity: 0;
+                          transform: translateY(-30px); animation: fadeInDown 1s ease forwards; }
+
+        .options-header h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 15px;
+                             text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .options-header p { font-size: 1.1em; opacity: 0.9; }
+
+        .zap-logo { height: 45px; margin-bottom: 15px;
+                    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3)); }
+
+        /* Grid dos Cards */
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 20px; flex: 1; align-content: center; }
+
+        /* Container do Card */
+        .card-container { background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                          transition: all 0.3s ease; overflow: hidden; }
+        .card-container.animate-in { animation: cardSlideIn 0.8s ease forwards; }
+        .card-container:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+
+        /* Parte principal do card */
+        .option-card { padding: 20px; text-align: center; position: relative; }
+        .card-icon { font-size: 3em; margin-bottom: 10px; }
+        .card-title { font-size: 1.4em; font-weight: bold; margin-bottom: 15px; color: #333; }
+
+        /* Botões */
+        .btn { padding: 12px 25px; border: none; border-radius: 25px; font-weight: bold; font-size: 1em;
+               cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block;
+               width: 100%; margin-bottom: 20px; }
+        .btn-primary { background: linear-gradient(135deg, #28a745, #20c997); color: white;
+                       box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4); color: white; text-decoration: none; }
+
+        .card-description { color: #444; margin-bottom: 15px; line-height: 1.5; font-size: 0.95em; text-align: center; }
+        .card-footer-text { color: #555; font-size: 0.9em; line-height: 1.4; text-align: center; padding-top: 15px;
+                            border-top: 1px solid #f0f0f0; font-style: italic; }
+
+        /* Suporte */
+        .support-section { text-align: center; margin-top: 25px; padding: 15px; }
+        .support-section.animate-in { animation: fadeInUp 0.8s ease forwards; }
+        .support-link { display: inline-block; background: linear-gradient(135deg, #007bff, #0056b3); color: white;
+                        padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 1em;
+                        transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3); }
+        .support-link:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4); color: white; text-decoration: none; }
+        .support-hours { margin-top: 10px; color: white; font-size: 0.9em; opacity: 0.8; }
+
+        /* Animações */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); }
+                                to { opacity: 1; transform: translateY(0); } }
+        @keyframes cardSlideIn { from { opacity: 0; transform: translateY(50px) scale(0.9); }
+                                 to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); }
+                              to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsivo */
+        @media (min-width: 600px) and (max-width: 1024px) {
+            .options-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
+            .manual-options { padding: 30px; }
+            .options-header h1 { font-size: 2.8em; }
+        }
+        @media (min-width: 1025px) {
+            .option-card { padding: 25px; }
+            .card-container:hover { transform: translateY(-10px); }
+            .options-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .manual-options { padding: 40px 20px; }
+            .options-header { margin-bottom: 40px; }
+            .options-header h1 { font-size: 3em; margin-bottom: 20px; }
+            .options-header p { font-size: 1.2em; }
+            .card-icon { font-size: 4em; margin-bottom: 15px; }
+            .card-title { font-size: 1.5em; margin-bottom: 20px; }
+            .card-description { font-size: 1em; margin-bottom: 20px; }
+            .btn { width: auto; padding: 15px 30px; font-size: 1.1em; margin-bottom: 25px; }
+            .card-footer-text { font-size: 1em; }
+            .zap-logo { height: 60px; }
+            .support-section { margin-top: 40px; padding: 20px; }
+            .support-link { padding: 15px 30px; font-size: 1.1em; }
+        }
+        @media (max-width: 400px) {
+            .manual-options { padding: 15px; }
+            .options-header h1 { font-size: 2em; }
+            .zap-logo { height: 35px; }
+            .card-title { font-size: 1.2em; }
+            .card-description { font-size: 0.9em; }
+            .option-card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="manual-options">
+        <div class="options-header">
+            <img src="/lovable-uploads/5fcb30e8-0721-47be-aea9-33564034e757.png" alt="Zap Logo" class="zap-logo">
+            <p>Escolha a melhor forma de comprar sua recarga.</p>
+        </div>
+        
+        <div class="options-grid">
+            <!-- Card Automático -->
+            <div class="card-container" id="card1">
+                <div class="option-card">
+                    <div class="card-icon">🚀</div>
+                    <div class="card-title">Compra Automática</div>
+                    <a href="https://blanchedalmond-dinosaur-432142.hostingersite.com/" class="btn btn-primary">COMPRAR AGORA</a>
+                    <div class="card-description">
+                        Compre no site e receba automaticamente no WhatsApp. Sem necessidade de enviar comprovante.
+                    </div>
+                    <div class="card-footer-text">
+                        Site liberado para acesso em dispositivo móvel + Wifi. Funciona 24 horas.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Manual -->
+            <div class="card-container" id="card2">
+                <div class="option-card">
+                    <div class="card-icon">📱</div>
+                    <div class="card-title">Compra Manual</div>
+                    <a href="https://yellowgreen-crane-172080.hostingersite.com/" class="btn btn-primary">FAÇA SEU PEDIDO</a>
+                    <div class="card-description">
+                        Faça seu pedido pelo catálogo e envie para o Whatsapp para receber os dados de pagamento.
+                    </div>
+                    <div class="card-footer-text">
+                        Sua recarga liberada após análise dos comprovantes. Funciona das 08 às 23h.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="support-section" id="support">
+            <a href="https://zap.manus.space" target="_blank" class="support-link">
+                💬 Suporte Exclusivo Humanizado
+            </a>
+            <div class="support-hours">08:00 às 23:00h</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('ZapExpress Hub carregado - Nova Versão');
+        });
+    </script>
+
+    <!-- Widget de Chat: arquivo LOCAL na mesma pasta do site -->
+    <script src="webchat-button.js"></script>
+</body>
+</html>
